@@ -84,7 +84,7 @@ class _OrderMapState extends State<OrderMap> {
     if (!_ready) return;
     if (!widget.nav && o.route.length != _routeLen) {
       _fit(); // чыныгы жол жүктөлдү — бүт маршрутту көрсөт
-    } else if (widget.follow && o.status == OrderStatus.onTheWay) {
+    } else if (widget.follow && o.status.moving) {
       if (widget.nav) {
         c.moveAndRotate(o.position, c.camera.zoom, -o.heading);
       } else {
@@ -124,6 +124,7 @@ class _OrderMapState extends State<OrderMap> {
             urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
             userAgentPackageName: 'kg.gruz.app',
           ),
+          const SimpleAttributionWidget(source: Text('© OpenStreetMap contributors')),
           PolylineLayer(polylines: [
             Polyline(
               points: nav ? o.remainingRoute : o.route,
@@ -134,8 +135,8 @@ class _OrderMapState extends State<OrderMap> {
             ),
           ]),
           MarkerLayer(markers: [
-            _pin(o.route.first, Icons.store, Colors.indigo),
-            _pin(o.route.last, Icons.flag, Colors.red),
+            _pin(o.from, Icons.store, Colors.indigo),
+            _pin(o.to, Icons.flag, Colors.red),
             Marker(
               point: o.position,
               width: 56,

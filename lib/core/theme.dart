@@ -9,6 +9,12 @@ ThemeData buildTheme() {
     colorScheme: ColorScheme.fromSeed(seedColor: kYellow)
         .copyWith(primary: kYellow, onPrimary: Colors.black),
     scaffoldBackgroundColor: Colors.white,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+      foregroundColor: Colors.black,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+    ),
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         backgroundColor: kYellow,
